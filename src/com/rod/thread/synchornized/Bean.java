@@ -1,4 +1,4 @@
-package com.rod.thread;
+package com.rod.thread.synchornized;
 
 public class Bean {
 	private int value = 100;

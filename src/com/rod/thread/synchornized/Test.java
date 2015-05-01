@@ -1,4 +1,4 @@
-package com.rod.thread;
+package com.rod.thread.synchornized;
 
 public class Test {
 	public static void main(String[] args) {

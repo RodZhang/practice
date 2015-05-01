@@ -1,4 +1,4 @@
-package com.rod.thread;
+package com.rod.thread.synchornized;
 
 public class MyRunnable implements Runnable {
 
