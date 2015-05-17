@@ -3,7 +3,9 @@ package com.rod.effective;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EmptyStackException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**  
  * @Title: TestGenerics.java
@@ -15,7 +17,8 @@ import java.util.List;
 
 public class TestGenerics {
 	public static void main(String[] args) {
-		test2();
+//		test2();
+		test3();
 	}
 	
 	private static void test1() {
@@ -34,6 +37,17 @@ public class TestGenerics {
 		while (!myStack.isEmpty()) {
 			System.out.print(myStack.pop());
 		}
+	}
+	
+	private static void test3() {
+		Favorites f = new Favorites();
+		f.putFavorite(String.class, "Java");
+		f.putFavorite(Integer.class, 0xcafebabe);
+		f.putFavorite(Class.class, Favorites.class);
+		String favoriteString = f.getFavorite(String.class);
+		int favoriteInteger = f.getFavorite(Integer.class);
+		Class<?> favoriteClass = f.getFavorite(Class.class);
+		System.out.printf("%s %x %s%n", favoriteString, favoriteInteger, favoriteClass.getSimpleName());
 	}
 	
 	// 因为List<String> 是原生态类型List的子类，所以可以将strings做为参数传入给这里的list
@@ -78,6 +92,20 @@ public class TestGenerics {
 		
 		public boolean isEmpty() {
 			return size == 0;
+		}
+	}
+
+	public static class Favorites {
+		private Map<Class<?>, Object> favorites = new HashMap<Class<?>, Object>();
+		
+		public <T> void putFavorite(Class<T> type, T instance) {
+			if (type != null) {
+				favorites.put(type, type.cast(instance));
+			}
+		}
+		
+		public <T> T getFavorite(Class<T> type) {
+			return type.cast(favorites.get(type));
 		}
 	}
 }
